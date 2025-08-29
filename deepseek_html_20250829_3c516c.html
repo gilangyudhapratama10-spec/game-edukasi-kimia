@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Larutan Elektrolit dan Non-Elektrolit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        header {
+            background: #303f9f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #c5cae9;
+        }
+        
+        .creator {
+            margin-top: 15px;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #e8eaf6;
+        }
+        
+        .content {
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        .theory {
+            background: #e8eaf6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .theory h2 {
+            color: #303f9f;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3f51b5;
+        }
+        
+        .theory p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .experiment {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .experiment h2 {
+            color: #303f9f;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3f51b5;
+        }
+        
+        .samples {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .sample {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 2px solid #c5cae9;
+        }
+        
+        .sample:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: #3f51b5;
+        }
+        
+        .sample h3 {
+            color: #303f9f;
+            margin-bottom: 10px;
+        }
+        
+        .sample p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .apparatus {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            min-height: 250px;
+        }
+        
+        .battery {
+            width: 40px;
+            height: 70px;
+            background: #333;
+            border-radius: 5px;
+            position: absolute;
+            left: 50px;
+            top: 40px;
+        }
+        
+        .wire {
+            position: absolute;
+            background: #777;
+            height: 5px;
+        }
+        
+        .bulb {
+            width: 30px;
+            height: 30px;
+            background: #ccc;
+            border-radius: 50%;
+            position: absolute;
+            left: 150px;
+            top: 40px;
+            z-index: 10;
+        }
+        
+        .bulb-on {
+            background: #ffd700;
+            box-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700;
+        }
+        
+        .electrodes {
+            width: 80px;
+            height: 120px;
+            position: absolute;
+            left: 220px;
+            top: 30px;
+        }
+        
+        .electrode {
+            width: 5px;
+            height: 100px;
+            background: #777;
+            position: absolute;
+        }
+        
+        .electrode-1 {
+            left: 20px;
+        }
+        
+        .electrode-2 {
+            right: 20px;
+        }
+        
+        .beaker {
+            width: 120px;
+            height: 100px;
+            background: rgba(187, 222, 251, 0.6);
+            border: 2px solid #64b5f6;
+            border-radius: 0 0 15px 15px;
+            position: absolute;
+            left: 200px;
+            top: 100px;
+            overflow: hidden;
+        }
+        
+        .solution {
+            width: 100%;
+            height: 0%;
+            position: absolute;
+            bottom: 0;
+            transition: height 1s;
+        }
+        
+        .bubbles {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            color: #90caf9;
+            display: none;
+        }
+        
+        .bubbles.show {
+            display: block;
+            animation: bubble 1.5s infinite;
+        }
+        
+        @keyframes bubble {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-80px); opacity: 0; }
+        }
+        
+        .indicators {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        
+        .indicator {
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            margin: 0 10px;
+        }
+        
+        .indicator h3 {
+            color: #303f9f;
+            margin-bottom: 10px;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8eaf6;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .conclusion {
+            margin-top: 25px;
+            padding: 20px;
+            background: #303f9f;
+            color: white;
+            border-radius: 10px;
+            grid-column: 1 / -1;
+        }
+        
+        .conclusion h2 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+            color: #333;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #c5cae9;
+        }
+        
+        th {
+            background: #3f51b5;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #e8eaf6;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #1a237e;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .samples {
+                grid-template-columns: 1fr;
+            }
+            
+            .apparatus {
+                min-height: 200px;
+            }
+            
+            .battery {
+                left: 20px;
+            }
+            
+            .bulb {
+                left: 100px;
+            }
+            
+            .electrodes {
+                left: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Larutan Elektrolit dan Non-Elektrolit</h1>
+            <p class="subtitle">Media Pembelajaran Interaktif Kimia</p>
+            <p class="creator">Dibuat oleh: Gilang Yuda Pratama, S.Pd | SMAN 10 Kabupaten Tangerang</p>
+        </header>
+        
+        <div class="content">
+            <div class="theory">
+                <h2>Teori Larutan Elektrolit</h2>
+                <p>Larutan elektrolit adalah larutan yang dapat menghantarkan listrik karena mengandung ion-ion yang bergerak bebas. Berdasarkan daya hantar listriknya, larutan elektrolit dibedakan menjadi:</p>
+                
+                <p><strong>1. Elektrolit Kuat</strong> → Larutan yang terionisasi sempurna dan menghasilkan banyak ion. Lampu menyala terang dan banyak gelembung gas.</p>
+                
+                <p><strong>2. Elektrolit Lemah</strong> → Larutan yang terionisasi sebagian dan menghasilkan sedikit ion. Lampu menyala redup atau tidak menyala, dan sedikit gelembung gas.</p>
+                
+                <p><strong>3. Non-Elektrolit</strong> → Larutan yang tidak terionisasi dan tidak menghantarkan listrik. Lampu tidak menyala dan tidak ada gelembung gas.</p>
+                
+                <p>Percobaan ini menggunakan 4 sampel larutan dengan konsentrasi berbeda untuk mengamati perbedaan daya hantar listriknya.</p>
+            </div>
+            
+            <div class="experiment">
+                <h2>Percobaan Daya Hantar Listrik</h2>
+                
+                <div class="samples">
+                    <div class="sample" onclick="testSolution(0)">
+                        <h3>Larutan A</h3>
+                        <p>NaCl 0.1 M</p>
+                    </div>
+                    <div class="sample" onclick="testSolution(1)">
+                        <h3>Larutan B</h3>
+                        <p>CH₃COOH 0.1 M</p>
+                    </div>
+                    <div class="sample" onclick="testSolution(2)">
+                        <h3>Larutan C</h3>
+                        <p>HCl 0.01 M</p>
+                    </div>
+                    <div class="sample" onclick="testSolution(3)">
+                        <h3>Larutan D</h3>
+                        <p>C₆H₁₂O₆ 0.1 M</p>
+                    </div>
+                </div>
+                
+                <div class="apparatus">
+                    <div class="battery"></div>
+                    <div class="wire" style="width: 60px; left: 90px; top: 55px;"></div>
+                    <div class="bulb" id="bulb"></div>
+                    <div class="wire" style="width: 40px; left: 180px; top: 55px;"></div>
+                    <div class="electrodes">
+                        <div class="electrode electrode-1"></div>
+                        <div class="electrode electrode-2"></div>
+                    </div>
+                    <div class="beaker">
+                        <div class="solution" id="solution"></div>
+                        <div class="bubbles" id="bubbles">○○○</div>
+                    </div>
+                    <div class="wire" style="width: 60px; left: 300px; top: 55px;"></div>
+                    <div class="wire" style="width: 5px; height: 40px; left: 360px; top: 15px;"></div>
+                </div>
+                
+                <div class="indicators">
+                    <div class="indicator">
+                        <h3>Lampu</h3>
+                        <p id="lampStatus">Mati</p>
+                    </div>
+                    <div class="indicator">
+                        <h3>Gelembung Gas</h3>
+                        <p id="bubbleStatus">Tidak Ada</p>
+                    </div>
+                </div>
+                
+                <div class="result" id="result">
+                    <h3>Hasil Pengamatan</h3>
+                    <p id="resultText"></p>
+                </div>
+            </div>
+            
+            <div class="conclusion">
+                <h2>Kesimpulan dan Klasifikasi</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Larutan</th>
+                            <th>Rumus Kimia</th>
+                            <th>Konsentrasi</th>
+                            <th>Nyala Lampu</th>
+                            <th>Gelembung Gas</th>
+                            <th>Jenis Larutan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Larutan A</td>
+                            <td>NaCl</td>
+                            <td>0.1 M</td>
+                            <td>Terang</td>
+                            <td>Banyak</td>
+                            <td>Elektrolit Kuat</td>
+                        </tr>
+                        <tr>
+                            <td>Larutan B</td>
+                            <td>CH₃COOH</td>
+                            <td>0.1 M</td>
+                            <td>Redup</td>
+                            <td>Sedikit</td>
+                            <td>Elektrolit Lemah</td>
+                        </tr>
+                        <tr>
+                            <td>Larutan C</td>
+                            <td>HCl</td>
+                            <td>0.01 M</td>
+                            <td>Redup</td>
+                            <td>Sedikit</td>
+                            <td>Elektrolit Lemah</td>
+                        </tr>
+                        <tr>
+                            <td>Larutan D</td>
+                            <td>C₆H₁₂O₆</td>
+                            <td>0.1 M</td>
+                            <td>Tidak Menyala</td>
+                            <td>Tidak Ada</td>
+                            <td>Non-Elektrolit</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Media Pembelajaran Kimia | Gilang Yuda Pratama, S.Pd | SMAN 10 Kabupaten Tangerang</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data larutan
+        const solutions = [
+            { 
+                name: "Natrium Klorida", 
+                formula: "NaCl", 
+                concentration: "0.1 M", 
+                type: "elektrolit kuat",
+                lamp: "terang",
+                bubbles: "banyak"
+            },
+            { 
+                name: "Asam Asetat", 
+                formula: "CH₃COOH", 
+                concentration: "0.1 M", 
+                type: "elektrolit lemah",
+                lamp: "redup",
+                bubbles: "sedikit"
+            },
+            { 
+                name: "Asam Klorida", 
+                formula: "HCl", 
+                concentration: "0.01 M", 
+                type: "elektrolit lemah",
+                lamp: "redup",
+                bubbles: "sedikit"
+            },
+            { 
+                name: "Gula", 
+                formula: "C₆H₁₂O₆", 
+                concentration: "0.1 M", 
+                type: "non-elektrolit",
+                lamp: "tidak menyala",
+                bubbles: "tidak ada"
+            }
+        ];
+        
+        // Fungsi untuk menguji larutan
+        function testSolution(index) {
+            const solution = solutions[index];
+            const bulb = document.getElementById('bulb');
+            const bubbles = document.getElementById('bubbles');
+            const solutionFill = document.getElementById('solution');
+            const lampStatus = document.getElementById('lampStatus');
+            const bubbleStatus = document.getElementById('bubbleStatus');
+            const result = document.getElementById('result');
+            const resultText = document.getElementById('resultText');
+            
+            // Reset semua status
+            bulb.classList.remove('bulb-on');
+            bubbles.classList.remove('show');
+            solutionFill.style.height = '0%';
+            result.classList.remove('show');
+            
+            // Isi beaker dengan larutan
+            solutionFill.style.height = '80%';
+            
+            // Tampilkan hasil setelah delay
+            setTimeout(() => {
+                // Atur status lampu
+                if (solution.lamp === "terang") {
+                    bulb.classList.add('bulb-on');
+                    lampStatus.textContent = "Menyala Terang";
+                    lampStatus.style.color = "green";
+                } else if (solution.lamp === "redup") {
+                    bulb.classList.add('bulb-on');
+                    lampStatus.textContent = "Menyala Redup";
+                    lampStatus.style.color = "orange";
+                } else {
+                    lampStatus.textContent = "Tidak Menyala";
+                    lampStatus.style.color = "red";
+                }
+                
+                // Atur status gelembung
+                if (solution.bubbles === "banyak") {
+                    bubbles.classList.add('show');
+                    bubbleStatus.textContent = "Banyak";
+                    bubbleStatus.style.color = "green";
+                } else if (solution.bubbles === "sedikit") {
+                    bubbles.classList.add('show');
+                    bubbleStatus.textContent = "Sedikit";
+                    bubbleStatus.style.color = "orange";
+                } else {
+                    bubbleStatus.textContent = "Tidak Ada";
+                    bubbleStatus.style.color = "red";
+                }
+                
+                // Tampilkan hasil
+                resultText.innerHTML = `
+                    <strong>${solution.name} (${solution.formula}) ${solution.concentration}</strong> adalah 
+                    <strong>${solution.type}</strong>. Lampu <strong>${solution.lamp}</strong> dan 
+                    gelembung gas <strong>${solution.bubbles}</strong>.
+                `;
+                result.classList.add('show');
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
